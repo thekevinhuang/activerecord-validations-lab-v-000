@@ -11,7 +11,10 @@ end
 
 class ClickbaitValidator < ActiveModel::Validator
   def validate(record)
-    if record.
+    unless record.title =~ /Won't Believe|Secret|Guess|Top [0-9]/i
+      record.errors[:title] << 'Needs more Clickbait'
+    
+    unless 
 
     end
   end
