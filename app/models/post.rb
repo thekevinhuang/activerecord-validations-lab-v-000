@@ -1,3 +1,11 @@
+class ClickbaitValidator < ActiveModel::Validator
+  def validate(record)
+    unless record.title =~ /Won't Believe|Secret|Guess|Top [0-9]/i
+      record.errors[:title] << 'Needs more Clickbait'
+    end
+  end
+end
+
 class Post < ActiveRecord::Base
   include ActiveModel::Validations
   validates_with ClickbaitValidator
@@ -7,10 +15,3 @@ class Post < ActiveRecord::Base
   validates :category, inclusion: {in: %w(Fiction Non-Fiction), message: "%{value} is not a valid category"}
 end
 
-class ClickbaitValidator < ActiveModel::Validator
-  def validate(record)
-    unless record.title =~ /Won't Believe|Secret|Guess|Top [0-9]/i
-      record.errors[:title] << 'Needs more Clickbait'
-    end
-  end
-end
